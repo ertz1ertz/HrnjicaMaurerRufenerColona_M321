@@ -1,0 +1,76 @@
+# Build Folders
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.userprefs
+*.vsp
+*.vspscc
+*.vssscc
+*.pidb
+*.svclog
+*.pdb
+
+# Auto-generated files
+*.log
+*.vs/
+.vscode/
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of PackageReference
+**/packages/*
+
+# Rider IDE
+.idea/
+
+# Visual Studio temporary files
+*.tmp
+*.tmp_proj
+*.log
+*.vsmdi
+*.cache
+*.bak
+*.backup
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Publish outputs
+*.Publish.xml
+*.deploy.cmd
+*.deploy-readme.txt
+*.exe
+*.dll
+*.app
+
+# Entity Framework
+*.edmx.diagram
+
+# Dotnet Watch
+.dotnet-watch/
+
+# Local history
+.history/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Others
+.vsconfig
