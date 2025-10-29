@@ -9,15 +9,11 @@ using System.Runtime.InteropServices;
 public class TodoController : ControllerBase
 {
   private readonly IActorRef _manager;
-  private readonly ActorSystem _system;
 
-
-  public TodoController(ActorSystem system)
+  public TodoController(IActorRef managerProxy)
   {
-    _system = system;
-    _manager = system.ActorSelection("/user/manager").ResolveOne(TimeSpan.FromSeconds(2)).Result;
+    _manager = managerProxy;
   }
-
 
   [HttpPost]
   public async Task<IActionResult> Create([FromBody] CreateRequest req)
@@ -27,11 +23,10 @@ public class TodoController : ControllerBase
     var res = await _manager.Ask<object>(cmd, TimeSpan.FromSeconds(5));
     return res switch
     {
-      Messages.Ack => CreatedAtAction(nameof(Get), new { id = id }, new { id }),
+      Messages.Ack => CreatedAtAction(nameof(Get), new { id }, new { id }),
       _ => StatusCode(500)
     };
   }
-
 
   [HttpGet("{id}")]
   public async Task<IActionResult> Get(Guid id)
@@ -44,7 +39,6 @@ public class TodoController : ControllerBase
       _ => StatusCode(500)
     };
   }
-
 
   [HttpPut("{id}")]
   public async Task<IActionResult> Update(Guid id, [FromBody] UpdateRequest req)
