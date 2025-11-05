@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Event;
 using Todo.Service.Actors;
 
 public class ManagerActor : ReceiveActor
@@ -10,6 +11,11 @@ public class ManagerActor : ReceiveActor
     Receive<Messages.CompleteTodo>(cmd => GetOrCreateActor(cmd.Id).Forward(cmd));
     Receive<Messages.DeleteTodo>(cmd => GetOrCreateActor(cmd.Id).Forward(cmd));
     Receive<Messages.GetTodo>(cmd => GetOrCreateActor(cmd.Id).Forward(cmd));
+
+    Receive<Terminated>(t =>
+    {
+      Context.GetLogger().Info($"TodoActor {t.ActorRef.Path.Name} stopped due to idle timeout.");
+    });
   }
 
   private IActorRef GetOrCreateActor(Guid id)

@@ -79,6 +79,5 @@ public class TodoController : ControllerBase
   }
 }
 
-
 public record CreateRequest(string Title, string? Description);
 public record UpdateRequest(string? Title, string? Description);

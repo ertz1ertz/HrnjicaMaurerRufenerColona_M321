@@ -9,15 +9,23 @@ public class TodoActor : PersistentActor
 
   private Messages.TodoState? _state;
 
+  private static readonly TimeSpan IdleTimeout = TimeSpan.FromMinutes(10);
+
   public TodoActor(string id)
   {
     PersistenceId = $"todo-{id}";
+
+    Context.SetReceiveTimeout(IdleTimeout);
   }
 
   protected override bool ReceiveCommand(object message)
   {
     switch (message)
     {
+      case ReceiveTimeout _:
+        Context.Stop(Self); 
+        return true;
+
       case Messages.CreateTodo cmd:
         HandleCreate(cmd);
         return true;
